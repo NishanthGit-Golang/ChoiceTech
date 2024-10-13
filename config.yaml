@@ -1,0 +1,8 @@
+database:
+  user: root:Nishanth123#@tcp(127.0.0.1:3306)/choiceDB?charset=utf8mb4&parseTime=True&loc=Local
+
+redis:
+  address: localhost:6379
+
+router:
+  port: :8080

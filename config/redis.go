@@ -7,13 +7,14 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
+	"github.com/spf13/viper"
 )
 
 var RDB *redis.Client
 
 func InitRedis() {
 	RDB = redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: viper.GetString("redis.address"),
 		DB:   0,
 	})
 	c, err := RDB.Ping(context.Background()).Result()
