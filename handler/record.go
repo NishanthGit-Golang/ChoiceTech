@@ -174,6 +174,9 @@ func DeleteAllRecords(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Error deleting records"})
 		return
 	}
-
+	err := config.RDB.Del(context.Background(), "record").Err()
+	if err != nil {
+		log.Println("Warning: Error deleting record from Redis:", err)
+	}
 	c.JSON(http.StatusOK, gin.H{"message": "All records deleted successfully", "rowsAffected": rowsAffected})
 }
