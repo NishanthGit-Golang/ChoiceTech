@@ -56,9 +56,6 @@ func UploadExcel(c *gin.Context) {
 			existingEmails = append(existingEmails, email)
 			continue
 		}
-		if len(columns) < 10 {
-			continue
-		}
 		employee := models.Record{
 			FirstName:   columns[0],
 			LastName:    columns[1],
