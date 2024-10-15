@@ -15,6 +15,7 @@ func SetupRouters(router *gin.Engine) {
 	router.PUT("/edit/:id", handler.EditRecord)
 	router.DELETE("/deleteById/:id", handler.DeleteRecordByID)
 	router.DELETE("/deleteAll", handler.DeleteAllRecords)
+	router.POST("/create", handler.CreateRecord)
 }
 
 func InitConfig() {
