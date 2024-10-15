@@ -156,8 +156,13 @@ func EditRecord(c *gin.Context) {
 
 func DeleteRecordByID(c *gin.Context) {
 	recordID := c.Param("id")
-	if err := config.DB.Where("id = ?", recordID).Delete(&models.Record{}).Error; err != nil {
-		c.JSON(400, gin.H{"error": "Invalid record ID", "details": err.Error()})
+	result := config.DB.Where("id = ?", recordID).Delete(&models.Record{})
+	if result.Error != nil {
+		c.JSON(400, gin.H{"error": "Invalid record ID", "details": result.Error.Error()})
+		return
+	}
+	if result.RowsAffected == 0 {
+		c.JSON(404, gin.H{"error": "Record not found", "details": "No record with the given ID"})
 		return
 	}
 	cacheKey := fmt.Sprintf("record:%s", recordID)
